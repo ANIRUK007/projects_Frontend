@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriHealth Signup</title>
+    <style>
+        /* Custom CSS */
+        :root {
+            --orange-50: #fff7ed;
+            --orange-100: #ffedd5;
+            --orange-200: #fed7aa;
+            --orange-300: #fdba74;
+            --orange-400: #fb923c;
+            --orange-500: #f97316;
+            --orange-600: #ea580c;
+            --orange-700: #c2410c;
+            --orange-800: #9a3412;
+            --orange-900: #7c2d12;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--orange-50);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--orange-600);
+        }
+
+        .form-container {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            max-width: 28rem;
+            margin: 0 auto 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--orange-800);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--orange-300);
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--orange-400);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            color: white;
+            background-color: var(--orange-500);
+            border-color: var(--orange-500);
+        }
+
+        .button-primary:hover {
+            background-color: var(--orange-600);
+            border-color: var(--orange-600);
+        }
+
+        .button-secondary {
+            color: #4a5568;
+            background-color: #edf2f7;
+            border-color: #edf2f7;
+        }
+
+        .button-secondary:hover {
+            background-color: #e2e8f0;
+            border-color: #e2e8f0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--orange-500);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NutriHealth Signup</h1>
+        <div class="form-container">
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" placeholder="******************" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Medical Condition</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="diabetes" class="condition-checkbox" name="medical-condition"> Diabetes
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="hypertension" class="condition-checkbox" name="medical-condition"> Hypertension
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="celiac" class="condition-checkbox" name="medical-condition"> Celiac Disease
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="lactose-intolerance" class="condition-checkbox" name="medical-condition"> Lactose Intolerance
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="other" class="condition-checkbox" id="other-checkbox"> Other
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="none" id="none-checkbox"> None
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group hidden" id="other-condition-div">
+                    <label for="other-condition">If Other, please specify</label>
+                    <input id="other-condition" type="text" placeholder="Other medical condition">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="button button-primary">Sign Up</button>
+                </div>
+            </form>
+            <div class="text-center" style="margin-top: 1rem;">
+                <p class="text-sm" style="color: var(--orange-800);">or</p>
+                <button id="guest-button" class="button button-secondary">Continue as Guest</button>
+            </div>
+        </div>
+        <p class="footer">&copy;2024 NutriHealth. All rights reserved.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const signupForm = document.getElementById('signup-form');
+            const guestButton = document.getElementById('guest-button');
+            const otherCheckbox = document.getElementById('other-checkbox');
+            const otherConditionDiv = document.getElementById('other-condition-div');
+            const otherConditionInput = document.getElementById('other-condition');
+            const noneCheckbox = document.getElementById('none-checkbox');
+            const conditionCheckboxes = document.querySelectorAll('.condition-checkbox');
+
+            // Handle form submission
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to your server
+                console.log('Form submitted');
+                alert('Sign up successful!');
+            });
+
+            // Handle guest button click
+            guestButton.addEventListener('click', function() {
+                // Here you would typically handle guest login logic
+                console.log('Continuing as guest');
+                alert('Continuing as guest');
+            });
+
+            // Toggle "Other" condition input field when "Other" checkbox is checked
+            otherCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    otherConditionInput.required = true;
+                    otherConditionDiv.classList.remove('hidden');
+                } else {
+                    otherConditionInput.required = false;
+                    otherConditionDiv.classList.add('hidden');
+                }
+            });
+
+            // Handle "None" checkbox behavior
+            noneCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // If "None" is checked, disable and uncheck all other checkboxes
+                    conditionCheckboxes.forEach((checkbox) => {
+                        checkbox.checked = false;
+                        checkbox.disabled = true;
+                    });
+                    otherConditionDiv.classList.add('hidden'); // Hide the "Other" input
+                } else {
+                    // Enable all other checkboxes if "None" is unchecked
+                    conditionCheckboxes.forEach((checkbox) => {
+                        checkbox.disabled = false;
+                    });
+                }
+            });
+
+            // Ensure "None" is unchecked if any other checkbox is selected
+            conditionCheckboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        noneCheckbox.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

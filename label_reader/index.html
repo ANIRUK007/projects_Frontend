@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Table Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            color: #5D4037;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 137, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #FF5722;
+            font-size: 2.5em;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .upload-section {
+            background-color: #FFF8E1;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .file-input-wrapper {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .file-input-wrapper:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .btn-file-input {
+            background: linear-gradient(45deg, #FF9800, #FF5722);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn-file-input:hover {
+            background: linear-gradient(45deg, #FF5722, #FF9800);
+        }
+        #preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #message {
+            color: #E65100;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        #analysisResult {
+            background-color: #FFF8E1;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #analysisResult h3 {
+            color: #FF5722;
+            margin-top: 0;
+        }
+        #analysisResult ul {
+            padding-left: 20px;
+        }
+        #analysisResult li {
+            margin-bottom: 0.5rem;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #FF9800;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nutrition Table Analysis</h1>
+        <div class="upload-section">
+            <div class="file-input-wrapper">
+                <button class="btn-file-input">Upload Image</button>
+                <input type="file" id="imageInput" accept="image/jpeg" />
+            </div>
+            <img id="preview" alt="Image preview" style="display: none;" />
+            <p id="message"></p>
+            <div class="loader" id="loader"></div>
+        </div>
+        <div id="analysisResult" style="display: none;"></div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const preview = document.getElementById('preview');
+        const message = document.getElementById('message');
+        const analysisResult = document.getElementById('analysisResult');
+        const loader = document.getElementById('loader');
+
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (file) {
+                if (file.type === "image/jpeg") {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        message.textContent = "Image uploaded successfully. Analyzing...";
+                        loader.style.display = 'block';
+                        
+                        // Simulate processing delay
+                        setTimeout(analyzeNutrition, 2000);
+                    }
+                    
+                    reader.readAsDataURL(file);
+                } else {
+                    message.textContent = "Please upload a JPG image.";
+                    preview.style.display = 'none';
+                    analysisResult.style.display = 'none';
+                }
+            }
+        });
+
+        function analyzeNutrition() {
+            // This is a simulated NLP analysis. In a real application, you would process the image,
+            // extract the nutrition data, and use an NLP model to generate this analysis.
+            const nlpAnalysis = generateSimulatedNLPAnalysis();
+            
+            analysisResult.innerHTML = nlpAnalysis;
+            analysisResult.style.display = 'block';
+            loader.style.display = 'none';
+            message.textContent = "Analysis complete.";
+        }
+
+        function generateSimulatedNLPAnalysis() {
+            const analyses = [
+                `<h3>Nutrition Analysis</h3>
+                <p>This product appears to be a balanced food item with moderate nutritional value. The calorie content is within a reasonable range for a single serving. The protein content is adequate, providing essential amino acids for muscle maintenance and growth. However, the sodium levels are slightly elevated, which may be a concern for individuals monitoring their salt intake.</p>
+                <p>The product contains a good amount of dietary fiber, which is beneficial for digestive health. The sugar content is relatively low, making it a suitable option for those watching their sugar intake. There are trace amounts of vitamins A and C, contributing to the overall nutritional profile.</p>
+                <h4>Recommendations:</h4>
+                <ul>
+                    <li>This product is generally safe for consumption by most individuals.</li>
+                    <li>Those with sodium-restricted diets should consume in moderation.</li>
+                    <li>The product can be part of a balanced diet but should not be relied upon as a primary source of nutrients.</li>
+                </ul>`,
+                
+                `<h3>Nutrition Analysis</h3>
+                <p>This product shows a high calorie density, primarily derived from its substantial fat content. The saturated fat levels are particularly noteworthy and exceed recommended daily values for a single serving. While it does provide a significant amount of protein, the overall nutritional balance is skewed towards fats.</p>
+                <p>The product is low in carbohydrates and dietary fiber. It contains minimal amounts of essential vitamins and minerals, with the exception of calcium, which is present in moderate quantities.</p>
+                <h4>Recommendations:</h4>
+                <ul>
+                    <li>This product should be consumed in moderation, especially by individuals monitoring their fat intake or managing cardiovascular health.</li>
+                    <li>It may not be suitable for regular consumption as part of a balanced diet due to its high fat content and limited nutrient diversity.</li>
+                    <li>Consider pairing with fiber-rich foods to improve the overall nutritional balance of the meal.</li>
+                </ul>`,
+                
+                `<h3>Nutrition Analysis</h3>
+                <p>This product is characterized by its high carbohydrate content, with a significant portion coming from added sugars. The fiber content is minimal, which may lead to rapid blood sugar fluctuations in some individuals. Protein content is low, suggesting this is not a significant source of essential amino acids.</p>
+                <p>On the positive side, the product is low in fat and contains no trans fats. It provides a good source of iron and several B vitamins, which contribute to energy metabolism and blood health.</p>
+                <h4>Recommendations:</h4>
+                <ul>
+                    <li>This product should be consumed in moderation, especially by individuals managing their blood sugar levels or weight.</li>
+                    <li>It may be more suitable as an occasional treat rather than a regular part of a balanced diet.</li>
+                    <li>Consider pairing with protein-rich foods to create a more balanced snack or meal.</li>
+                </ul>`
+            ];
+
+            return analyses[Math.floor(Math.random() * analyses.length)];
+        }
+    </script>
+</body>
+</html>
